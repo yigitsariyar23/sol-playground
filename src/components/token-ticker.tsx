@@ -1,26 +1,8 @@
 'use client';
 
-import { useEffect, useState, useCallback, memo } from 'react';
+import { useEffect, useState, memo } from 'react';
 import { TokenData } from '@/types/token';
 import { fetchTokens } from '../utils/fetchTokens'; // Adjust the path if necessary
-
-const COINGECKO_API = 'https://api.coingecko.com/api/v3';
-
-// Token IDs we want to track
-const TOKEN_IDS = [
-  'bitcoin',
-  'ethereum',
-  'solana',
-  'bonk',
-  'dogwifhat',
-  'myro',
-  'book-of-meme',
-  'popcat',
-  'dogecoin',
-  'pepe',
-  'floki',
-  'shiba-inu'
-];
 
 // Memoized token item component
 const TokenItem = memo(({ token }: { token: TokenData }) => (

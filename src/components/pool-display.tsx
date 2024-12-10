@@ -2,7 +2,7 @@
 
 import Image from 'next/image';
 
-export const PoolDisplay = ({ amount }: { amount: number }) => {
+export const PoolDisplay = () => {
   return (
     <div className="text-center my-8">
       <div className="flex justify-center gap-4 mb-4">

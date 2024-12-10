@@ -2,18 +2,12 @@
 
 import { useState, useEffect } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
-import { Header } from '@/components/header'
-import { Menu } from '@/components/menu'
-import { CenterContent } from '@/components/center-content'
-import { PoolSize } from '@/components/pool-size'
 import { CountdownTimer } from '@/components/countdown-timer'
 import { PoolDisplay } from '@/components/pool-display'
-import { BattleArena } from '@/components/battle-arena'
 import { TokenTicker } from '@/components/token-ticker'
 import { FaqMenu } from '@/components/faq-menu'
 import { JoinWaitlist } from '@/components/join-waitlist';
 import Image from 'next/image';
-import axios from 'axios';
 import { fetchTokens } from '../utils/fetchTokens'; // Adjust the path if necessary
 
 interface MenuItem {
@@ -78,6 +72,9 @@ export default function Home() {
     return null;
   }
 
+  const flokiAnimationDelay = flokiMarketCap > bonkMarketCap ? 200 : 400;
+  const bonkAnimationDelay = bonkMarketCap > flokiMarketCap ? 200 : 400;
+
   return (
     <main className="min-h-screen relative overflow-hidden bg-gradient-to-b from-purple-950 to-black">
       {/* Spotlight Effects */}
@@ -137,7 +134,7 @@ export default function Home() {
                     width={150}
                     height={270}
                     className="absolute bottom-0 mx-12 left-1/2 -translate-x-1/2 animate-idle"
-                    style={{ animationDelay: `${200}ms` }}
+                    style={{ animationDelay: `${bonkAnimationDelay}ms` }}
                     priority
                   />
                 </div>
@@ -155,7 +152,7 @@ export default function Home() {
                     width={150}
                     height={270}
                     className="absolute bottom-0 -mx-48 left-1/2 -translate-x-1/2 animate-idle"
-                    style={{ animationDelay: `${400}ms` }}
+                    style={{ animationDelay: `${flokiAnimationDelay}ms` }}
                     priority
                   />
                 </div>
