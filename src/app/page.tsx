@@ -72,8 +72,8 @@ export default function Home() {
     return null;
   }
 
-  const flokiAnimationDelay = flokiMarketCap > bonkMarketCap ? 200 : 400;
-  const bonkAnimationDelay = bonkMarketCap > flokiMarketCap ? 200 : 400;
+  const flokiAnimationDelay = (flokiMarketCap ?? 0) > (bonkMarketCap ?? 0) ? 200 : 400;
+  const bonkAnimationDelay = (bonkMarketCap ?? 0) > (flokiMarketCap ?? 0) ? 200 : 400;
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-gradient-to-b from-purple-950 to-black">
@@ -108,7 +108,7 @@ export default function Home() {
           <div className="flex flex-col items-center justify-center flex-grow">
             <CountdownTimer />
             <div className="">
-              <PoolDisplay amount={0}/>
+              <PoolDisplay/>
             </div>
             <div className="mt-48 relative w-full max-w-screen-xl mx-auto">
               <div className="relative">
@@ -125,7 +125,7 @@ export default function Home() {
                     $BONK
                   </span>
                   <span className='absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-lg translate-x-64 -translate-y-32'
-                  style={{color: bonkMarketCap  < 0 ? 'red' : 'green' }}>
+                  style={{color: (bonkMarketCap ?? 0)  < 0 ? 'red' : 'green' }}>
                     {bonkMarketCap !== null ? `%${bonkMarketCap.toLocaleString()}` : 'NULL'}
                   </span>
                   <Image
@@ -143,7 +143,7 @@ export default function Home() {
                     $FLOKI
                   </span>
                   <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-lg -translate-x-80 -translate-y-32 " 
-                  style={{color: flokiMarketCap  < 0 ? 'red' : 'green' }}>
+                  style={{color: (flokiMarketCap ?? 0)  < 0 ? 'red' : 'green' }}>
                     {flokiMarketCap !== null ? `%${flokiMarketCap.toLocaleString()}` : 'NULL'}
                   </span>
                   <Image
