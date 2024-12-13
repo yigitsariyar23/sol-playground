@@ -16,7 +16,7 @@ const supabase = createClient(
 
 const rateLimit = {
   windowMs: 180 * 1000, // 3 minute
-  maxRequests: 3,
+  maxRequests: 2,
   requests: new Map<string, { count: number, timestamp: number }>()
 }
 
