@@ -30,6 +30,8 @@ export const JoinWaitlist = () => {
     } else {
       console.error('Error adding to users:', result.error);
     }
+
+    setIsOpen(false);
   };
 
   return (
