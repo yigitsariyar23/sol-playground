@@ -79,79 +79,82 @@ export default function Home() {
     <main className="min-h-screen relative overflow-hidden bg-gradient-to-b from-purple-950 to-black">
       {/* Spotlight Effects */}
       <div className="absolute inset-0">
-        <div className="absolute top-1/4 left-1/4 w-96 h-96 bg-purple-500/20 blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
-        <div className="absolute top-1/4 right-1/4 w-96 h-96 bg-purple-500/20 blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute top-1/4 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-purple-500/20 blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
+        <div className="absolute top-1/4 right-1/4 w-48 md:w-96 h-48 md:h-96 bg-purple-500/20 blur-3xl transform translate-x-1/2 -translate-y-1/2"></div>
       </div>
 
       {/* Main Content */}
       <div className="relative z-10 flex flex-col min-h-screen">
-        <div className="flex-grow p-6">
+        <div className="flex-grow p-2 md:p-4">
           {/* Header with buttons */}
-          <div className="flex justify-between items-center mb-8">
-            <div className="flex gap-4">
+          <div className="flex justify-between items-center mb-4 md:mb-8">
+            <div className="flex gap-2 md:gap-4">
               <FaqMenu />
             </div>
             <JoinWaitlist/>
           </div>
 
           {/* Title Section */}
-          <div className="text-center mb-12">
-            <h1 className="font-pixel text-5xl md:text-7xl text-white mb-4">SOLPLAYGROUND</h1>
-            <p className="font-pixel text-lg text-gray-300">THE BATTLEGROUND OF MEMECOINS!</p>
-            <p className="font-pixel text-sm text-gray-400">
+          <div className="text-center mb-4 md:mb-8">
+            <h1 className="font-pixel text-2xl sm:text-2xl md:text-5xl lg:text-7xl text-white mb-2 md:mb-4">SOLPLAYGROUND</h1>
+            <p className="font-pixel text-sm sm:text-base md:text-lg text-gray-300">THE BATTLEGROUND OF MEMECOINS!</p>
+            <p className="font-pixel text-xs sm:text-sm text-gray-400">
               COMPETE, WIN AND MULTIPLY YOUR GAINS<br />
               WHILE SHAPING THE FUTURE OF $SPG
             </p>
           </div>
 
           {/* Main content */}
-          <div className="flex flex-col items-center justify-center flex-grow">
+          <div className="flex flex-col -translate-y-4 md:-translate-y-8 items-center justify-center flex-grow">
             <CountdownTimer />
-            <div className="">
+            <div className="-translate-y-4 md:-translate-y-8">
               <PoolDisplay/>
             </div>
-            <div className="mt-48 relative w-full max-w-screen-xl mx-auto">
+            <div className="mt-24 sm: mt-48 md:mt-48 relative w-full -translate-y-4 md:-translate-y-8 max-w-screen-xl mx-auto">
               <div className="relative">
                 <Image
                   src="/battle-arena.svg"
                   alt="battle-arena"
                   width={600}
                   height={600}
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2"
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[300px] md:w-[600px]"
                   priority
                 />
-                <div>
-                  <span className="absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-lg translate-x-48 -translate-y-48">
-                    $BONK
-                  </span>
-                  <span className='absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-lg translate-x-64 -translate-y-32'
-                  style={{color: (bonkMarketCap ?? 0)  < 0 ? 'red' : 'green' }}>
-                    {bonkMarketCap !== null ? `%${bonkMarketCap.toLocaleString()}` : 'NULL'}
-                  </span>
+                <div className="relative">
+                  {/* Character positions */}
+                  <div className='translate-x-24 sm: translate-x-12 md:translate-x-48 -translate-y-24 sm: -translate-y-40 md:-translate-y-48'>
+                    <span className="absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm sm:text-base md:text-lg">
+                      $BONK
+                    </span>
+                    <span className='absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm sm:text-base md:text-lg translate-x-12 translate-y-8'
+                    style={{color: (bonkMarketCap ?? 0)  < 0 ? 'red' : 'green' }}>
+                      {bonkMarketCap !== null ? `%${bonkMarketCap.toLocaleString()}` : 'NULL'}
+                    </span>
+                  </div>
                   <Image
                     src="/right-char.svg"
                     alt="right-char"
                     width={150}
                     height={270}
-                    className="absolute bottom-0 mx-12 left-1/2 -translate-x-1/2 animate-idle"
+                    className="absolute bottom-0 mx-6 md:mx-12 left-1/2 -translate-x-1/2 animate-idle w-[75px] md:w-[150px]"
                     style={{ animationDelay: `${bonkAnimationDelay}ms` }}
                     priority
                   />
-                </div>
-                <div>
-                  <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-lg -translate-x-64 -translate-y-48">
-                    $FLOKI
-                  </span>
-                  <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-lg -translate-x-80 -translate-y-32 " 
-                  style={{color: (flokiMarketCap ?? 0)  < 0 ? 'red' : 'green' }}>
-                    {flokiMarketCap !== null ? `%${flokiMarketCap.toLocaleString()}` : 'NULL'}
-                  </span>
+                  <div className='-translate-x-24 md:-translate-x-48 -translate-y-24 sm: -translate-y-40 md:-translate-y-48'>
+                    <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm sm:text-base md:text-lg">
+                      $FLOKI
+                    </span>
+                    <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm sm:text-base md:text-lg -translate-x-24 translate-y-8" 
+                    style={{color: (flokiMarketCap ?? 0)  < 0 ? 'red' : 'green' }}>
+                      {flokiMarketCap !== null ? `%${flokiMarketCap.toLocaleString()}` : 'NULL'}
+                    </span>
+                  </div>
                   <Image
                     src="/left-char.svg"
                     alt="left-char"
                     width={150}
                     height={270}
-                    className="absolute bottom-0 -mx-48 left-1/2 -translate-x-1/2 animate-idle"
+                    className="absolute bottom-0 -mx-24 md:-mx-48 left-1/2 -translate-x-1/2 animate-idle w-[75px] md:w-[150px]"
                     style={{ animationDelay: `${flokiAnimationDelay}ms` }}
                     priority
                   />

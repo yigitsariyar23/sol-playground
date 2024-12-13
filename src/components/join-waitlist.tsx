@@ -2,17 +2,40 @@
 
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { createClient } from '@supabase/supabase-js';
+
+// Initialize Supabase client
+const supabaseUrl = process.env.NEXT_PUBLIC_SUPABASE_URL;
+const supabaseKey = process.env.NEXT_PUBLIC_SUPABASE_KEY;
+
+if (!supabaseUrl || !supabaseKey) {
+  throw new Error('Missing Supabase environment variables')
+}
+
+const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const JoinWaitlist = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [wallet, setWallet] = useState('');
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
     // Handle form submission logic here
     console.log('Email:', email);
     console.log('Wallet:', wallet);
+
+    // Add to Supabase database
+    const { data, error } = await supabase
+      .from('users')
+      .insert([{ email, wallet }]);
+
+    if (error) {
+      console.error('Error adding to users:', error);
+    } else {
+      console.log('Successfully added to users:', data);
+    }
+
     setIsOpen(false); // Close dialog after submission
   };
 

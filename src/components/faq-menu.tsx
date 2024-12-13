@@ -65,14 +65,14 @@ export const FaqMenu = () => {
       <div className="relative">
         <button 
           onClick={() => setIsMenuOpen(!isMenuOpen)}
-          className="bg-purple-700 px-4 py-2 rounded font-pixel text-white hover:bg-purple-600 transition"
+          className="bg-purple-700 px-2 md:px-4 py-1 md:py-2 rounded font-pixel text-[10px] sm:text-xs md:text-base text-white hover:bg-purple-600 transition"
         >
           FAQ
         </button>
 
         {/* FAQ Menu */}
         {isMenuOpen && (
-          <div className="absolute top-full left-0 mt-2 w-64 bg-purple-900 rounded-lg shadow-lg overflow-hidden z-50">
+          <div className="absolute top-full left-0 mt-2 w-48 md:w-64 bg-purple-900 rounded-lg shadow-lg overflow-hidden z-50">
             {faqItems.map((item, index) => (
               <div key={item.id}>
                 <button
@@ -80,7 +80,7 @@ export const FaqMenu = () => {
                     setActiveModal(item.id);
                     setIsMenuOpen(false);
                   }}
-                  className="w-full px-6 py-3 text-left text-white hover:bg-purple-700 transition font-pixel text-sm"
+                  className="w-full px-4 sm:px-6 py-2 sm:py-3 text-left text-white hover:bg-purple-700 transition font-pixel text-[10px] sm:text-xs md:text-sm"
                 >
                   {item.title}
                 </button>
@@ -96,13 +96,13 @@ export const FaqMenu = () => {
       {/* Modals */}
       {faqItems.map((item) => (
         <Dialog key={item.id} open={activeModal === item.id} onOpenChange={() => setActiveModal(null)}>
-          <DialogContent className="bg-purple-900 text-white max-h-[80vh] overflow-y-auto">
+          <DialogContent className="bg-purple-900 text-white max-h-[90vh] md:max-h-[80vh] overflow-y-auto w-[95vw] md:w-full">
             <DialogHeader className="top-0 z-10 pb-4 border-b border-purple-500">
-              <DialogTitle className="font-pixel text-xl">
+              <DialogTitle className="font-pixel text-sm sm:text-base md:text-xl">
                 {item.title}
               </DialogTitle>
             </DialogHeader>
-            <div className="py-6 px-4 space-y-4 text-sm font-pixel">
+            <div className="py-4 sm:py-6 px-3 sm:px-4 space-y-3 sm:space-y-4 text-[10px] sm:text-xs md:text-sm font-pixel">
               {item.content.split('\n').map((line, i) => (
                 <p key={i} className={`leading-relaxed ${line.startsWith('---') ? 'border-t-2 border-purple-500 my-8 pt-8' : ''}`}>
                   {!line.startsWith('---') && line}
