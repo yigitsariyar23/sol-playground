@@ -2,17 +2,6 @@
 
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
-import { createClient } from '@supabase/supabase-js';
-
-// Initialize Supabase client
-const supabaseUrl = process.env.SUPABASE_URL;
-const supabaseKey = process.env.SUPABASE_KEY;
-
-if (!supabaseUrl || !supabaseKey) {
-  throw new Error('Missing Supabase environment variables')
-}
-
-const supabase = createClient(supabaseUrl, supabaseKey);
 
 export const JoinWaitlist = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -21,22 +10,26 @@ export const JoinWaitlist = () => {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    // Handle form submission logic here
     console.log('Email:', email);
     console.log('Wallet:', wallet);
 
-    // Add to Supabase database
-    const { data, error } = await supabase
-      .from('users')
-      .insert([{ email, wallet }]);
+    // Send data to the API route
+    const response = await fetch('/api/submitWaitlist', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ email, wallet }),
+    });
 
-    if (error) {
-      console.error('Error adding to users:', error);
+    const result = await response.json();
+
+    if (response.ok) {
+      console.log('Successfully added to users:', result.data);
+      setIsOpen(false); // Close dialog after submission
     } else {
-      console.log('Successfully added to users:', data);
+      console.error('Error adding to users:', result.error);
     }
-
-    setIsOpen(false); // Close dialog after submission
   };
 
   return (
