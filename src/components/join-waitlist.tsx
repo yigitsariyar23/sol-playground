@@ -14,7 +14,7 @@ export const JoinWaitlist = () => {
     console.log('Wallet:', wallet);
 
     // Send data to the API route
-    const response = await fetch('/api/submitWaitlist', {
+    const response = await fetch('/api/route', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
