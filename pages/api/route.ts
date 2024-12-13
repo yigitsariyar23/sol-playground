@@ -29,7 +29,6 @@ export default async function handler(request: NextRequest) {
           { status: 500 }
         )
       }
-
       return NextResponse.json({ data })
     } catch {
       return NextResponse.json(
