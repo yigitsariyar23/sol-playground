@@ -7,7 +7,7 @@ import { fetchTokens } from '../utils/fetchTokens'; // Adjust the path if necess
 // Memoized token item component
 const TokenItem = memo(({ token }: { token: TokenData }) => (
   <span className="text-white inline-flex items-center mx-12">
-    ${token.symbol}
+    ${token.symbol.toUpperCase()}
     <span 
       className={`ml-1 ${
         token.price_change_percentage_24h >= 0 

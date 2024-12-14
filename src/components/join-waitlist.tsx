@@ -8,8 +8,19 @@ export const JoinWaitlist = () => {
   const [email, setEmail] = useState('');
   const [wallet, setWallet] = useState('');
 
+  const validateWallet = (wallet: string) => {
+    // Simple validation for wallet address (you can replace this with more complex validation)
+    const walletRegex = /^[a-zA-Z0-9]{44}$/;
+    return walletRegex.test(wallet);
+  };
+
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!validateWallet(wallet)) {
+      console.error('Invalid wallet address');
+      return;
+    }
+
     console.log('Email:', email);
     console.log('Wallet:', wallet);
 

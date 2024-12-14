@@ -9,6 +9,7 @@ import { FaqMenu } from '@/components/faq-menu'
 import { JoinWaitlist } from '@/components/join-waitlist';
 import Image from 'next/image';
 import { fetchTokens } from '../utils/fetchTokens'; // Adjust the path if necessary
+import StatusBar from '../components/StatusBar';
 
 interface MenuItem {
   id: string
@@ -22,6 +23,10 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [bonkMarketCap, setBonkMarketCap] = useState<number | null>(null);
   const [flokiMarketCap, setFlokiMarketCap] = useState<number | null>(null);
+  const [coin1, setCoin1] = useState('FLOKI');
+  const [coin2, setCoin2] = useState('BONK');
+  const [coin1MarketCapChange, setCoin1MarketCapChange] = useState(0);
+  const [coin2MarketCapChange, setCoin2MarketCapChange] = useState(0);
 
   useEffect(() => {
     setMenuItems([
@@ -72,6 +77,10 @@ export default function Home() {
     return null;
   }
 
+  const totalChange = Math.abs(coin1MarketCapChange) + Math.abs(coin2MarketCapChange);
+  const coin1Percentage = totalChange ? (Math.abs(coin1MarketCapChange) / totalChange) * 100 : 50;
+  const coin2Percentage = totalChange ? (Math.abs(coin2MarketCapChange) / totalChange) * 100 : 50;
+
   const flokiAnimationDelay = (flokiMarketCap ?? 0) > (bonkMarketCap ?? 0) ? 200 : 400;
   const bonkAnimationDelay = (bonkMarketCap ?? 0) > (flokiMarketCap ?? 0) ? 200 : 400;
 
@@ -110,7 +119,18 @@ export default function Home() {
             <div className="-translate-y-4 md:-translate-y-8">
               <PoolDisplay/>
             </div>
-            <div className="mt-24 sm: mt-48 md:mt-48 relative w-full -translate-y-4 md:-translate-y-8 max-w-screen-xl mx-auto">
+            
+            <div className='-translate-y-12 sm: -translate-y-6 md: -translate-y-12 '>
+              <h1 className='text-white'>Battle between {coin1} and {coin2}</h1>
+              <StatusBar
+                coin1={coin1}
+                coin2={coin2}
+                coin1Percentage={coin1Percentage}
+                coin2Percentage={coin2Percentage}
+              />
+              {/* Other components and content */}
+            </div>
+            <div className="mt-16 sm: mt-48 md:mt-48 relative w-full -translate-y-4 md:-translate-y-8 max-w-screen-xl mx-auto">
               <div className="relative">
                 <Image
                   src="/battle-arena.svg"
@@ -123,12 +143,9 @@ export default function Home() {
                 <div className="relative">
                   {/* Character positions */}
                   <div className='translate-x-24 sm: translate-x-12 md:translate-x-48 -translate-y-24 sm: -translate-y-40 md:-translate-y-48'>
-                    <span className="absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm sm:text-base md:text-lg">
-                      $BONK
-                    </span>
                     <span className='absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm sm:text-base md:text-lg translate-x-12 translate-y-8'
-                    style={{color: (bonkMarketCap ?? 0)  < 0 ? 'red' : 'green' }}>
-                      {bonkMarketCap !== null ? `%${bonkMarketCap.toLocaleString()}` : 'NULL'}
+                    style={{color: (coin2MarketCapChange ?? 0)  < 0 ? 'red' : 'green' }}>
+                      {coin2MarketCapChange !== null ? `%${coin2MarketCapChange.toLocaleString()}` : 'NULL'}
                     </span>
                   </div>
                   <Image
@@ -141,9 +158,6 @@ export default function Home() {
                     priority
                   />
                   <div className='-translate-x-24 md:-translate-x-48 -translate-y-24 sm: -translate-y-40 md:-translate-y-48'>
-                    <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm sm:text-base md:text-lg">
-                      $FLOKI
-                    </span>
                     <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm sm:text-base md:text-lg -translate-x-24 translate-y-8" 
                     style={{color: (flokiMarketCap ?? 0)  < 0 ? 'red' : 'green' }}>
                       {flokiMarketCap !== null ? `%${flokiMarketCap.toLocaleString()}` : 'NULL'}
