@@ -23,10 +23,10 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [bonkMarketCap, setBonkMarketCap] = useState<number | null>(null);
   const [flokiMarketCap, setFlokiMarketCap] = useState<number | null>(null);
-  const [coin1, setCoin1] = useState('FLOKI');
-  const [coin2, setCoin2] = useState('BONK');
-  const [coin1MarketCapChange, setCoin1MarketCapChange] = useState(0);
-  const [coin2MarketCapChange, setCoin2MarketCapChange] = useState(0);
+  const [coin1] = useState('FLOKI');
+  const [coin2] = useState('BONK');
+  const [coin1MarketCapChange] = useState(0);
+  const [coin2MarketCapChange] = useState(0);
 
   useEffect(() => {
     setMenuItems([
