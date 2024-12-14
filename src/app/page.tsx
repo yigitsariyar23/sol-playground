@@ -27,8 +27,19 @@ export default function Home() {
   const [coin2MarketCapChange, setCoin2MarketCap] = useState<number>(0);
 
   useEffect(() => {
-    document.body.style.overflow = 'hidden';
-    document.documentElement.style.overflow = 'hidden';
+    const handleResize = () => {
+      const isMobile = window.innerWidth <= 768; // Adjust breakpoint as needed
+      if (isMobile) {
+        document.body.style.overflow = 'auto';
+        document.documentElement.style.overflow = 'auto';
+      } else {
+        document.body.style.overflow = 'hidden';
+        document.documentElement.style.overflow = 'hidden';
+      }
+    };
+  
+    handleResize(); // Apply the logic on mount
+    window.addEventListener('resize', handleResize); // Listen for screen size changes
 
     setMenuItems([
       { 
@@ -91,7 +102,7 @@ export default function Home() {
   const coin2AnimationDelay = (coin2MarketCapChange ?? 0) > (coin1MarketCapChange ?? 0) ? 200 : 400;
 
   return (
-    <main className="min-h-screen relative overflow-hidden bg-gradient-to-b from-purple-950 to-black">
+    <main className="min-h-screen relative overflow-hidden md:overflow-auto bg-gradient-to-b from-purple-950 to-black">
       {/* Spotlight Effects */}
       <div className="absolute inset-0">
         <div className="absolute top-1/4 left-1/4 w-48 md:w-96 h-48 md:h-96 bg-purple-500/20 blur-3xl transform -translate-x-1/2 -translate-y-1/2"></div>
