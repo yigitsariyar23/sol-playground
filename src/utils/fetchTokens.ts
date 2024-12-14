@@ -12,7 +12,8 @@ const TOKEN_IDS = [
   'dogecoin',
   'pepe',
   'floki',
-  'shiba-inu'
+  'shiba-inu',
+  'just-a-chill-guy'
 ];
 
 export const fetchTokens = async (): Promise<TokenData[]> => {

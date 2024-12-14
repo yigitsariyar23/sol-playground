@@ -23,7 +23,7 @@ export default function Home() {
   const [mounted, setMounted] = useState(false);
   const [bonkMarketCap, setBonkMarketCap] = useState<number | null>(null);
   const [flokiMarketCap, setFlokiMarketCap] = useState<number | null>(null);
-  const [coin1] = useState('FLOKI');
+  const [coin1] = useState('CHILLGUY');
   const [coin2] = useState('BONK');
   const [coin1MarketCapChange] = useState(0);
   const [coin2MarketCapChange] = useState(0);
@@ -57,13 +57,13 @@ export default function Home() {
       try {
         const tokens = await fetchTokens();
         const bonkToken = tokens.find(token => token.id === 'bonk');
-        const flokiToken = tokens.find(token => token.id === 'floki');
+        const chillGuyToken = tokens.find(token => token.id === 'just-a-chill-guy');
 
         if (bonkToken) {
           setBonkMarketCap(bonkToken.price_change_percentage_24h ?? null);
         }
-        if (flokiToken) {
-          setFlokiMarketCap(flokiToken.price_change_percentage_24h ?? null);
+        if (chillGuyToken) {
+          setFlokiMarketCap(chillGuyToken.price_change_percentage_24h ?? null);
         }
       } catch (error) {
         console.error('Error fetching market cap data:', error);

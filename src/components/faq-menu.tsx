@@ -18,7 +18,7 @@ const faqItems: FaqItem[] = [
   {
     id: 'how-to',
     title: 'How to Play',
-    content: 'Getting started on SolPlayGround is as easy as 1-2-3:\n\n1. Pick Your Arena: Choose from our categories like Mini (100k-300k market cap), Midi (300k-500k), or Mega (500k-1M).\n• Got a favorite token? Time to send it into battle! ⚔️\n\n2. Stake and Enter: Connect your wallet, stake your token, and secure your place in the competition.\n\n3. Watch the Battle: During the match, tokens will compete based on market cap growth. Follow live updates and cheer for your champion!\n\n4. Claim Your Rewards: When the timer hits zero, the token with the highest growth wins, and its supporters take home the prize pool.\n\nReady to test your token\'s might? Join the arena today!'
+    content: 'Getting started on SolPlayGround is as easy as 1-2-3:\n\n1. Pick Your Arena: Choose from our categories like Mini (1M-5M market cap), Midi (5M-10M), Mega (10M-15M), Huge (15M+).\n• Got a favorite token? Time to send it into battle! ⚔️\n\n2. Stake and Enter: Connect your wallet, stake your token, and secure your place in the competition.\n\n3. Watch the Battle: During the match, tokens will compete based on market cap growth. Follow live updates and cheer for your champion!\n\n4. Claim Your Rewards: When the timer hits zero, the token with the highest growth wins, and its supporters take home the prize pool.\n\nReady to test your token\'s might? Join the arena today!'
   },
   {
     id: 'spg',
