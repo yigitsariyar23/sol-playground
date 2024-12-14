@@ -58,6 +58,10 @@
     @apply bg-background text-foreground;
     font-family: 'Press Start 2P', cursive;
   }
+
+  html, body {
+    overflow: hidden;
+  }
 }
 
 @layer components {

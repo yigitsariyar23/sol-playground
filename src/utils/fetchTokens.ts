@@ -13,7 +13,7 @@ const TOKEN_IDS = [
   'pepe',
   'floki',
   'shiba-inu',
-  'just-a-chill-guy'
+  'chill-guy'
 ];
 
 export const fetchTokens = async (): Promise<TokenData[]> => {
@@ -29,7 +29,6 @@ export const fetchTokens = async (): Promise<TokenData[]> => {
 
     return TOKEN_IDS.map(id => {
       const tokenData = data.find((token: { id: string; }) => token.id === id);
-      console.log(tokenData)
       return {
         id,
         symbol: tokenData?.symbol || id.toUpperCase(),

@@ -111,7 +111,7 @@ export const JoinWaitlist = () => {
             <DialogTitle className="font-pixel text-xl">Success</DialogTitle>
           </DialogHeader>
           <div className="flex flex-col space-y-4">
-            <p>You're successfully added to the waitlist!</p>
+            <p>You are successfully added to the waitlist!</p>
             <button onClick={() => setSuccessOpen(false)} className="bg-green-500 px-4 py-2 rounded font-pixel text-white hover:bg-green-400 transition">
               Close
             </button>

@@ -21,14 +21,15 @@ export default function Home() {
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [menuItems, setMenuItems] = useState<MenuItem[]>([])
   const [mounted, setMounted] = useState(false);
-  const [bonkMarketCap, setBonkMarketCap] = useState<number | null>(null);
-  const [flokiMarketCap, setFlokiMarketCap] = useState<number | null>(null);
   const [coin1] = useState('CHILLGUY');
   const [coin2] = useState('BONK');
-  const [coin1MarketCapChange] = useState(0);
-  const [coin2MarketCapChange] = useState(0);
+  const [coin1MarketCapChange, setCoin1MarketCap] = useState<number>(0);
+  const [coin2MarketCapChange, setCoin2MarketCap] = useState<number>(0);
 
   useEffect(() => {
+    document.body.style.overflow = 'hidden';
+    document.documentElement.style.overflow = 'hidden';
+
     setMenuItems([
       { 
         id: 'what-is', 
@@ -56,14 +57,14 @@ export default function Home() {
     const fetchMarketCaps = async () => {
       try {
         const tokens = await fetchTokens();
-        const bonkToken = tokens.find(token => token.id === 'bonk');
-        const chillGuyToken = tokens.find(token => token.id === 'just-a-chill-guy');
+        const coin1Token = tokens.find(token => token.id === 'bonk');
+        const coin2Token = tokens.find(token => token.id === 'chill-guy');
 
-        if (bonkToken) {
-          setBonkMarketCap(bonkToken.price_change_percentage_24h ?? null);
+        if (coin1Token) {
+          setCoin1MarketCap(coin1Token.price_change_percentage_24h ?? null);
         }
-        if (chillGuyToken) {
-          setFlokiMarketCap(chillGuyToken.price_change_percentage_24h ?? null);
+        if (coin2Token) {
+          setCoin2MarketCap(coin2Token.price_change_percentage_24h ?? null);
         }
       } catch (error) {
         console.error('Error fetching market cap data:', error);
@@ -71,6 +72,11 @@ export default function Home() {
     };
 
     fetchMarketCaps();
+
+    return () => {
+      document.body.style.overflow = '';
+      document.documentElement.style.overflow = '';
+    };
   }, [])
 
   if (!mounted) {
@@ -81,8 +87,8 @@ export default function Home() {
   const coin1Percentage = totalChange ? (Math.abs(coin1MarketCapChange) / totalChange) * 100 : 50;
   const coin2Percentage = totalChange ? (Math.abs(coin2MarketCapChange) / totalChange) * 100 : 50;
 
-  const flokiAnimationDelay = (flokiMarketCap ?? 0) > (bonkMarketCap ?? 0) ? 200 : 400;
-  const bonkAnimationDelay = (bonkMarketCap ?? 0) > (flokiMarketCap ?? 0) ? 200 : 400;
+  const coin1AnimationDelay = (coin1MarketCapChange ?? 0) > (coin2MarketCapChange ?? 0) ? 200 : 400;
+  const coin2AnimationDelay = (coin2MarketCapChange ?? 0) > (coin1MarketCapChange ?? 0) ? 200 : 400;
 
   return (
     <main className="min-h-screen relative overflow-hidden bg-gradient-to-b from-purple-950 to-black">
@@ -120,8 +126,8 @@ export default function Home() {
               <PoolDisplay/>
             </div>
             
-            <div className='-translate-y-12 sm: -translate-y-6 md: -translate-y-12 '>
-              <h1 className='text-white'>Battle between {coin1} and {coin2}</h1>
+            <div className='-translate-y-4'>
+              <h1 className='text-white text-center'>Battle between {coin1} and {coin2}</h1>
               <StatusBar
                 coin1={coin1}
                 coin2={coin2}
@@ -130,56 +136,57 @@ export default function Home() {
               />
               {/* Other components and content */}
             </div>
-            <div className="mt-16 sm: mt-48 md:mt-48 relative w-full -translate-y-4 md:-translate-y-8 max-w-screen-xl mx-auto">
+            <div className="mt-48 sm: mt-48 relative w-full -translate-y-4 md:-translate-y-8 max-w-screen-xl mx-auto">
               <div className="relative">
                 <Image
                   src="/battle-arena.svg"
                   alt="battle-arena"
-                  width={600}
-                  height={600}
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[300px] md:w-[600px]"
+                  width={400}
+                  height={400}
+                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px]"
                   priority
                 />
                 <div className="relative">
                   {/* Character positions */}
-                  <div className='translate-x-24 sm: translate-x-12 md:translate-x-48 -translate-y-24 sm: -translate-y-40 md:-translate-y-48'>
-                    <span className='absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm sm:text-base md:text-lg translate-x-12 translate-y-8'
-                    style={{color: (coin2MarketCapChange ?? 0)  < 0 ? 'red' : 'green' }}>
-                      {coin2MarketCapChange !== null ? `%${coin2MarketCapChange.toLocaleString()}` : 'NULL'}
-                    </span>
-                  </div>
-                  <Image
-                    src="/right-char.svg"
-                    alt="right-char"
-                    width={150}
-                    height={270}
-                    className="absolute bottom-0 mx-6 md:mx-12 left-1/2 -translate-x-1/2 animate-idle w-[75px] md:w-[150px]"
-                    style={{ animationDelay: `${bonkAnimationDelay}ms` }}
-                    priority
-                  />
-                  <div className='-translate-x-24 md:-translate-x-48 -translate-y-24 sm: -translate-y-40 md:-translate-y-48'>
-                    <span className="absolute left-1/2 transform -translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm sm:text-base md:text-lg -translate-x-24 translate-y-8" 
-                    style={{color: (flokiMarketCap ?? 0)  < 0 ? 'red' : 'green' }}>
-                      {flokiMarketCap !== null ? `%${flokiMarketCap.toLocaleString()}` : 'NULL'}
-                    </span>
-                  </div>
                   <Image
                     src="/left-char.svg"
                     alt="left-char"
                     width={150}
                     height={270}
-                    className="absolute bottom-0 -mx-24 md:-mx-48 left-1/2 -translate-x-1/2 animate-idle w-[75px] md:w-[150px]"
-                    style={{ animationDelay: `${flokiAnimationDelay}ms` }}
+                    className="absolute bottom-0 -mx-24 left-1/2 -translate-x-1/2 animate-idle w-[100px]"
+                    style={{ animationDelay: `${coin1AnimationDelay}ms` }}
+                    priority
+                  />
+                  <Image
+                    src="/right-char.svg"
+                    alt="right-char"
+                    width={150}
+                    height={270}
+                    className="absolute bottom-0 mx-12 left-1/2 -translate-x-1/2 animate-idle w-[100px]"
+                    style={{ animationDelay: `${coin2AnimationDelay}ms` }}
                     priority
                   />
                 </div>
-              </div>
+                <div>
+                  <div className='md:translate-x-24 sm:translate-x-4 md:-translate-y-24 sm:translate-y-8'>
+                    <span className='absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm'
+                    style={{color: (coin1MarketCapChange ?? 0)  < 0 ? 'red' : 'green' }}>
+                      {coin1MarketCapChange !== null ? `%${coin1MarketCapChange.toLocaleString()}` : 'NULL'}
+                    </span>
+                  </div>
+                  <div className='md:-translate-x-48 sm:-translate-x-24 md:-translate-y-24 sm:translate-y-8'>
+                    <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm" 
+                    style={{color: (coin2MarketCapChange ?? 0)  < 0 ? 'red' : 'green' }}>
+                      {coin2MarketCapChange !== null ? `%${coin2MarketCapChange.toLocaleString()}` : 'NULL'}
+                    </span>
+                  </div>
+                </div>
             </div>
           </div>
         </div>
-
+      </div>
         {/* Token Ticker - Fixed at bottom */}
-        <div className="w-full">
+        <div className="w-full fixed bottom-0">
           <TokenTicker />
         </div>
       </div>
