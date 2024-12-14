@@ -59,8 +59,15 @@
     font-family: 'Press Start 2P', cursive;
   }
 
+}
+
+html, body {
+  overflow: auto;
+}
+
+@media (min-width: 750px) {
   html, body {
-    overflow: hidden;
+      overflow: hidden;
   }
 }
 
