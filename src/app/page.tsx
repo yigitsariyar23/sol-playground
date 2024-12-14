@@ -140,61 +140,62 @@ export default function Home() {
             <div className='-translate-y-4'>
               <h1 className='text-white text-center'>Battle between {coin1} and {coin2}</h1>
               <StatusBar
-                coin1={coin1}
-                coin2={coin2}
-                coin1Percentage={coin1Percentage}
-                coin2Percentage={coin2Percentage}
+          coin1={coin1}
+          coin2={coin2}
+          coin1Percentage={coin1Percentage}
+          coin2Percentage={coin2Percentage}
               />
               {/* Other components and content */}
             </div>
             <div className="mt-48 sm: mt-48 relative w-full -translate-y-4 md:-translate-y-8 max-w-screen-xl mx-auto">
               <div className="relative">
-                <Image
-                  src="/battle-arena.svg"
-                  alt="battle-arena"
-                  width={400}
-                  height={400}
-                  className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px]"
-                  priority
-                />
-                <div className="relative">
-                  {/* Character positions */}
-                  <Image
-                    src="/left-char.svg"
-                    alt="left-char"
-                    width={150}
-                    height={270}
-                    className="absolute bottom-0 -mx-24 left-1/2 -translate-x-1/2 animate-idle w-[100px]"
-                    style={{ animationDelay: `${coin1AnimationDelay}ms` }}
-                    priority
-                  />
-                  <Image
-                    src="/right-char.svg"
-                    alt="right-char"
-                    width={150}
-                    height={270}
-                    className="absolute bottom-0 mx-12 left-1/2 -translate-x-1/2 animate-idle w-[100px]"
-                    style={{ animationDelay: `${coin2AnimationDelay}ms` }}
-                    priority
-                  />
-                </div>
-                <div>
-                  <div className='md:translate-x-24 sm:translate-x-4 md:-translate-y-24 sm:translate-y-8'>
-                    <span className='absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm'
-                    style={{color: (coin1MarketCapChange ?? 0)  < 0 ? 'red' : 'green' }}>
-                      {coin1MarketCapChange !== null ? `%${coin1MarketCapChange.toLocaleString()}` : 'NULL'}
-                    </span>
-                  </div>
-                  <div className='md:-translate-x-48 sm:-translate-x-24 md:-translate-y-24 sm:translate-y-8'>
-                    <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm" 
-                    style={{color: (coin2MarketCapChange ?? 0)  < 0 ? 'red' : 'green' }}>
-                      {coin2MarketCapChange !== null ? `%${coin2MarketCapChange.toLocaleString()}` : 'NULL'}
-                    </span>
-                  </div>
-                </div>
+          <Image
+            src="/battle-arena.svg"
+            alt="battle-arena"
+            width={400}
+            height={400}
+            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px]"
+            priority
+          />
+          <div className="relative">
+            {/* Character positions */}
+            <Image
+              src="/left-char.svg"
+              alt="left-char"
+              width={150}
+              height={270}
+              className="absolute bottom-0 -mx-24 left-1/2 -translate-x-1/2 animate-idle w-[100px]"
+              style={{ animationDelay: `${coin1AnimationDelay}ms` }}
+              priority
+            />
+            <Image
+              src="/right-char.svg"
+              alt="right-char"
+              width={150}
+              height={270}
+              className="absolute bottom-0 mx-12 left-1/2 -translate-x-1/2 animate-idle w-[100px]"
+              style={{ animationDelay: `${coin2AnimationDelay}ms` }}
+              priority
+            />
+          </div>
+          <div>
+            <div className='md:translate-x-24 sm:translate-x-4 md:-translate-y-24 sm:translate-y-8'>
+              <span className='absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm'
+              style={{color: (coin1MarketCapChange ?? 0)  < 0 ? 'red' : 'green' }}>
+                {coin1MarketCapChange !== null ? `%${coin1MarketCapChange.toLocaleString()}` : 'NULL'}
+              </span>
+            </div>
+            <div className='md:-translate-x-48 sm:-translate-x-24 md:-translate-y-24 sm:translate-y-8'>
+              <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm" 
+              style={{color: (coin2MarketCapChange ?? 0)  < 0 ? 'red' : 'green' }}>
+                {coin2MarketCapChange !== null ? `%${coin2MarketCapChange.toLocaleString()}` : 'NULL'}
+              </span>
+            </div>
+          </div>
             </div>
           </div>
         </div>
+        <div className="h-16"></div>
       </div>
         {/* Token Ticker - Fixed at bottom */}
         <div className="w-full fixed bottom-0">
