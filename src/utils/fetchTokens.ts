@@ -2,18 +2,23 @@ import { TokenData } from '@/types/token';
 
 const COINGECKO_API = 'https://api.coingecko.com/api/v3';
 const TOKEN_IDS = [
-  'bitcoin',
-  'ethereum',
-  'solana',
   'bonk',
-  'myro',
-  'book-of-meme',
+  'dogwifcoin',
+  'fartcoin',
+  'ai16z',
   'popcat',
-  'dogecoin',
-  'pepe',
-  'floki',
-  'shiba-inu',
-  'chill-guy'
+  'peanut-the-squirrel',
+  'baby-doge-coin',
+  'cat-in-a-dogs-world',
+  'goatseus-maximus',
+  'gigachad-2',
+  'book-of-meme',
+  'zerebro',
+  'act-i-the-ai-prophecy',
+  'moo-deng',
+  'ponke',
+  'fwog',
+  'chill-guy',
 ];
 
 export const fetchTokens = async (): Promise<TokenData[]> => {
