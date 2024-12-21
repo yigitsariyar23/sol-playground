@@ -17,7 +17,7 @@ export const PoolDisplay = () => {
       <div className="flex justify-center items-center gap-2 md:gap-4 mb-2 md:mb-4">
         <button 
           onClick={copyToClipboard} 
-          className="bg-blue-500 text-white py-2 px-4 rounded-lg flex items-center"
+          className="bg-purple-700 hover bg-purple-600 text-white py-2 px-4 rounded-lg flex items-center"
         >
           $SPG CA: <Copy size={24} className="ml-2" />
         </button>
