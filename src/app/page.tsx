@@ -86,7 +86,7 @@ export default function Home() {
 
     fetchMarketCaps();
 
-    const modal = searchParams.get('modal');
+    const modal = searchParams?.get('modal');
     if (modal === 'faq') {
       setActiveModal('faq');
       window.history.replaceState(null, '', '/');
