@@ -10,6 +10,7 @@ import { JoinWaitlist } from '@/components/join-waitlist';
 import Image from 'next/image';
 import { fetchTokens } from '../utils/fetchTokens'; // Adjust the path if necessary
 import StatusBar from '../components/StatusBar';
+import { useSearchParams } from 'next/navigation';
 
 interface MenuItem {
   id: string
@@ -25,6 +26,7 @@ export default function Home() {
   const [coin2] = useState('BONK');
   const [coin1MarketCapChange, setCoin1MarketCap] = useState<number>(0);
   const [coin2MarketCapChange, setCoin2MarketCap] = useState<number>(0);
+  const searchParams = useSearchParams();
 
   useEffect(() => {
     const handleResize = () => {
@@ -84,11 +86,17 @@ export default function Home() {
 
     fetchMarketCaps();
 
+    const modal = searchParams.get('modal');
+    if (modal === 'faq') {
+      setActiveModal('faq');
+      window.history.replaceState(null, '', '/');
+    }
+
     return () => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
     };
-  }, [])
+  }, [searchParams])
 
   if (!mounted) {
     return null;
