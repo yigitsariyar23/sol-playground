@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react'
+import { useState, useEffect, Suspense } from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { CountdownTimer } from '@/components/countdown-timer'
 import { PoolDisplay } from '@/components/pool-display'
@@ -18,7 +18,7 @@ interface MenuItem {
   content: string
 }
 
-export default function Home() {
+function Home() {
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [menuItems, setMenuItems] = useState<MenuItem[]>([])
   const [mounted, setMounted] = useState(false);
@@ -227,5 +227,13 @@ export default function Home() {
         </Dialog>
       ))}
     </main>
+  );
+}
+
+export default function Page() {
+  return (
+    <Suspense fallback={<div>Loading...</div>}>
+      <Home />
+    </Suspense>
   );
 }
