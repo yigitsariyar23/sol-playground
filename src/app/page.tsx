@@ -106,9 +106,6 @@ function Home() {
   const coin1Percentage = totalChange ? (Math.abs(coin1MarketCapChange) / totalChange) * 100 : 50;
   const coin2Percentage = totalChange ? (Math.abs(coin2MarketCapChange) / totalChange) * 100 : 50;
 
-  const coin1AnimationDelay = (coin1MarketCapChange ?? 0) > (coin2MarketCapChange ?? 0) ? 200 : 400;
-  const coin2AnimationDelay = (coin2MarketCapChange ?? 0) > (coin1MarketCapChange ?? 0) ? 200 : 400;
-
   return (
     <main className="min-h-screen relative overflow-hidden md:overflow-auto bg-gradient-to-b from-purple-950 to-black">
       {/* Spotlight Effects */}
