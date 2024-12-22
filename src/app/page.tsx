@@ -165,27 +165,27 @@ function Home() {
             className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px]"
             priority
           />
-          <div className="relative">
+            <div className="relative flex justify-center">
             {/* Character positions */}
             <Image
-              src="/left-char.svg"
+              src="/chillguy.png"
               alt="left-char"
-              width={150}
-              height={270}
-              className="absolute bottom-0 -mx-24 left-1/2 -translate-x-1/2 animate-idle w-[100px]"
-              style={{ animationDelay: `${coin1AnimationDelay}ms` }}
+              width={200}
+              height={200}
+              className="absolute bottom-0 mx-48 left-1/4 -translate-x-1/2 animate-idle w-[100px]"
+              style={{ animationDelay: `20ms` }}
               priority
             />
             <Image
-              src="/right-char.svg"
+              src="/bonk.png"
               alt="right-char"
-              width={150}
-              height={270}
-              className="absolute bottom-0 mx-12 left-1/2 -translate-x-1/2 animate-idle w-[100px]"
-              style={{ animationDelay: `${coin2AnimationDelay}ms` }}
+              width={200}
+              height={200}
+              className="absolute bottom-0 mx-48 right-1/4 -translate-x-1/2 animate-idle w-[100px]"
+              style={{ animationDelay: `20ms` }}
               priority
             />
-          </div>
+            </div>
           <div>
             <div className='md:translate-x-24 sm:translate-x-4 md:-translate-y-24 sm:translate-y-8'>
               <span className='absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm'
