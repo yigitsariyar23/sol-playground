@@ -94,6 +94,9 @@ function Home() {
       window.history.replaceState(null, '', '/');
     }
 
+    document.body.style.backgroundColor = 'black';
+    document.documentElement.style.backgroundColor = 'black';
+
     return () => {
       document.body.style.overflow = '';
       document.documentElement.style.overflow = '';
