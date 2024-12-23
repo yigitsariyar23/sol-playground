@@ -11,6 +11,7 @@ import Image from 'next/image';
 import { fetchTokens } from '../utils/fetchTokens'; // Adjust the path if necessary
 import StatusBar from '../components/StatusBar';
 import { useSearchParams } from 'next/navigation';
+import { Balloon } from '@/components/balloon';
 
 interface MenuItem {
   id: string
@@ -27,6 +28,7 @@ function Home() {
   const [coin1MarketCapChange, setCoin1MarketCap] = useState<number>(0);
   const [coin2MarketCapChange, setCoin2MarketCap] = useState<number>(0);
   const searchParams = useSearchParams();
+
 
   useEffect(() => {
     const handleResize = () => {
@@ -134,6 +136,7 @@ function Home() {
               WHILE SHAPING THE FUTURE OF $SPG
             </p>
           </div>
+          <Balloon/>
 
           {/* Main content */}
           <div className="flex flex-col -translate-y-4 md:-translate-y-8 items-center justify-center flex-grow">
@@ -223,6 +226,17 @@ function Home() {
           </DialogContent>
         </Dialog>
       ))}
+      <Dialog open={activeModal === 'join-waitlist'} onOpenChange={(isOpen) => setActiveModal(isOpen ? 'join-waitlist' : null)}>
+        <DialogContent>
+          <DialogHeader>
+            <DialogTitle>Join Waitlist</DialogTitle>
+          </DialogHeader>
+          <div className="mt-4 space-y-4 text-sm">
+            <p>Join our waitlist to get early access and updates!</p>
+            <a href="https://example.com/join-waitlist" target="_blank" rel="noopener noreferrer" className="text-blue-500 underline">Join Waitlist</a>
+          </div>
+        </DialogContent>
+      </Dialog>
     </main>
   );
 }

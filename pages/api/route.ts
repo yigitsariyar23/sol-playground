@@ -54,10 +54,11 @@ export default async function handler(request: NextRequest) {
 
   if (request.method === 'POST') {
     try {
-      const { email, wallet } = await request.json()
+      const { email, wallet, source } = await request.json()
+      const tableName = source === 'balloon' ? 'balloon' : 'users'
       
       const { data, error } = await supabase
-        .from('users')
+        .from(tableName)
         .insert([{ email, wallet }])
         
       if (error) {

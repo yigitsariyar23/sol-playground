@@ -3,8 +3,9 @@
 import { useState } from 'react';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from 'react-toastify'; // Import toast for notifications
+import Image from 'next/image';
 
-export const JoinWaitlist = () => {
+export const Balloon = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [email, setEmail] = useState('');
   const [wallet, setWallet] = useState('');
@@ -36,32 +37,38 @@ export const JoinWaitlist = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, wallet, source: 'join-waitlist' }), // Add source field
+      body: JSON.stringify({ email, wallet, source: 'balloon' }), // Add source field
     });
 
     const result = await response.json();
 
     if (response.ok) {
       console.log('Successfully added to users:', result.data);
-      toast.success('Successfully added to the waitlist!'); // Show success notification
+      toast.success('Successfully added to the baloon!'); // Show success notification
       setIsOpen(false); // Close dialog after submission
       setSuccessOpen(true); // Open success dialog
     } else {
       console.error('Error adding to users:', result.error);
-      toast.error('Error adding to the waitlist.'); // Show error notification
+      toast.error('Error adding to the baloon.'); // Show error notification
     }
   };
 
   return (
     <>
-      <button onClick={() => setIsOpen(true)} className="bg-purple-700 px-4 py-2 rounded font-pixel text-white hover:bg-purple-600 transition">
-        JOIN WAITLIST
-      </button>
+      <Image
+                src="/balloon.png"
+                alt="balloon"
+                width={200}
+                height={200}
+                className="absolute -my-64 mx-14 right-1/4 animate-bounce w-auto h-[100px] cursor-pointer"
+                priority
+                onClick={() => setIsOpen(true)}
+              />
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="bg-purple-900 text-white">
           <DialogHeader>
-            <DialogTitle className="font-pixel text-xl">Join the Waitlist</DialogTitle>
+            <DialogTitle className="font-pixel text-xl">BALLOOON</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
             <input
