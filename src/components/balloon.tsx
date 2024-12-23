@@ -56,14 +56,14 @@ export const Balloon = () => {
   return (
     <>
       <Image
-                src="/balloon.png"
-                alt="balloon"
-                width={200}
-                height={200}
-                className="absolute -my-64 mx-14 right-1/4 animate-bounce w-auto h-[100px] cursor-pointer"
-                priority
-                onClick={() => setIsOpen(true)}
-              />
+        src="/balloon.png"
+        alt="balloon"
+        width={200}
+        height={200}
+        className="absolute -my-8 lg:mx-14 lg:-my-64 right-1/4 animate-bounce w-auto h-[60px] lg:h-[100px]  cursor-pointer"
+        priority
+        onClick={() => setIsOpen(true)}
+      />
 
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="bg-purple-900 text-white">

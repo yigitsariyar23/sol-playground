@@ -155,7 +155,7 @@ function Home() {
               />
               {/* Other components and content */}
             </div>
-            <div className="mt-48 sm: mt-48 relative w-full -translate-y-4 md:-translate-y-8 max-w-screen-xl mx-auto">
+            <div className="mt-48 sm:mt-48 relative w-full -translate-y-4 md:-translate-y-8 max-w-screen-xl mx-auto">
               <div className="relative">
           <Image
             src="/battle-arena.svg"
@@ -172,7 +172,7 @@ function Home() {
               alt="left-char"
               width={200}
               height={200}
-              className="absolute bottom-0 mx-48 left-1/4 -translate-x-1/2 animate-idle w-[100px]"
+              className="absolute bottom-0 sm:-mx-8 md:mx-32 lg:mx-48 left-1/4 -translate-x-1/2 animate-idle w-[100px]"
               style={{ animationDelay: `20ms` }}
               priority
             />
@@ -181,7 +181,7 @@ function Home() {
               alt="right-char"
               width={200}
               height={200}
-              className="absolute bottom-0 mx-48 right-1/4 -translate-x-1/2 animate-idle w-[100px]"
+              className="absolute bottom-0 sm:-mx-8 md:mx-24 lg:mx-48 right-1/4 -translate-x-1/2 animate-idle w-[100px]"
               style={{ animationDelay: `20ms` }}
               priority
             />
