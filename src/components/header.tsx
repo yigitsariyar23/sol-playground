@@ -1,18 +1,21 @@
-import { Button } from "@/components/ui/button"
+import { FaqMenu } from '@/components/faq-menu'
+import { JoinWaitlist } from './join-waitlist'
 
 export function Header() {
   return (
-    <div className="flex justify-between items-start w-full">
-      <div className="space-y-2">
-        <h1 className="text-4xl md:text-6xl font-bold text-white" style={{ fontFamily: 'monospace' }}>
-          SOLPLAYGROUND
-        </h1>
-        <p className="text-gray-200 text-sm">The Battleground of Memecoins!</p>
-        <p className="text-gray-200 text-xs">Compete, win, and multiply your gains while shaping the future of $SPG.</p>
+    <div className="relative w-full">
+      <div className="absolute top-0 left-1/2 transform -translate-x-1/2 md:top-12 text-center">
+        <h1 className="font-pixel sm:text-2xl md:text-4xl xl:text-5xl text-white">SOLPLAYGROUND</h1>
+        <p className="font-pixel sm:text-base md:text-base xl:text-xl text-gray-300">THE BATTLEGROUND OF MEMECOINS!</p>
+        <p className="font-pixel sm: md:text-xs xl:text-sm text-gray-400">
+          COMPETE, WIN AND MULTIPLY YOUR GAINS<br />
+          WHILE SHAPING THE FUTURE OF $SPG
+        </p>
       </div>
-      <Button className="bg-red-700 hover:bg-red-800 text-white px-6 text-sm">
-        Join Waitlist Join ARENA
-      </Button>
+      <div className="flex justify-between items-center">
+        <FaqMenu />
+        <JoinWaitlist />
+      </div>
     </div>
   )
 }

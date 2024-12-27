@@ -1,48 +1,57 @@
 'use client';
 
-interface Token {
-  name: string;
-  percentageChange: number;
-  direction: 'up' | 'down';
-}
+import { useState } from 'react';
+import Image from 'next/image';
 
-const defaultTokens: Token[] = [
-  {
-    name: 'BONK',
-    percentageChange: 15.5,
-    direction: 'up'
-  },
-  {
-    name: 'WIF',
-    percentageChange: 8.2,
-    direction: 'up'
-  },
-  {
-    name: 'MYRO',
-    percentageChange: 12.3,
-    direction: 'up'
-  }
-];
 
-export const BattleArena = ({ tokens = defaultTokens }: { tokens?: Token[] }) => {
+export const BattleArena = ({ coin1, coin2 }: { coin1: string, coin2: string }) => {
+  const [votes, setVotes] = useState({ [coin1]: 0, [coin2]: 0 });
+  const [showDialog, setShowDialog] = useState(false);
+  const [walletAddress, setWalletAddress] = useState('');
+
+  const handleVote = (coin: string) => {
+    setShowDialog(true);
+  };
+
+  const handleDialogSubmit = () => {
+    setShowDialog(false);
+    // Add logic to verify wallet address and $SPG balance
+    alert('To vote you should have at least 4000$SPG.');
+    // If verification passes, update votes
+    // setVotes(prevVotes => ({ ...prevVotes, [coin]: prevVotes[coin] + 1 }));
+  };
+
   return (
-    <div className="relative w-full max-w-4xl mx-auto">
-      <div className="flex justify-around items-center">
-        {tokens.map((token, index) => (
-          <div key={index} className="text-center">
-            <div className="font-pixel text-2xl text-white mb-2">${token.name}</div>
-            <div className={`font-pixel text-xl ${token.direction === 'up' ? 'text-green-500' : 'text-red-500'}`}>
-              {token.percentageChange}% {token.direction.toUpperCase()}!
-            </div>
-            <div className="w-16 h-16 bg-gray-800 rounded-full mt-2">
-              {/* Character sprite would go here */}
-            </div>
+    <div className='border-2 border-white p-16 rounded-xl'>
+      <div className="-mt-16">
+        <h1 className='text-white text-center'>Battle between {coin1} and {coin2}</h1>
+      </div>
+      <div className="flex justify-around mt-8">
+        <div className="text-center">
+          <Image src={`/${coin1}.svg`} alt={coin1} className="w-16 h-16 mx-auto" width={64} height={64} />
+          <button onClick={() => handleVote(coin1)} className="mt-2 bg-blue-500 text-white px-4 py-2 rounded mb-4 mx-2">Vote</button>
+          <p className="text-white mt-2">Votes: {votes[coin1]}</p>
+        </div>
+        <div className="text-center">
+          <Image src={`/${coin2}.svg`} alt={coin2} className="w-16 h-16 mx-auto" width={64} height={64} />
+          <button onClick={() => handleVote(coin2)} className="mt-2 bg-blue-500 text-white px-4 py-2 rounded mb-4 mx-2">Vote</button>
+          <p className="text-white mt-2">Votes: {votes[coin2]}</p>
+        </div>
+      </div>
+      {showDialog && (
+        <div className="fixed inset-0 flex items-center justify-center bg-black bg-opacity-50">
+          <div className="bg-white p-8 rounded">
+            <h2 className="text-black mb-4">Enter Wallet Address</h2>
+            <input
+              type="text"
+              value={walletAddress}
+              onChange={(e) => setWalletAddress(e.target.value)}
+              className="border p-2 w-full mb-4"
+            />
+            <button onClick={handleDialogSubmit} className="bg-blue-500 text-white px-4 py-2 rounded">Submit</button>
           </div>
-        ))}
-      </div>
-      <div className="absolute inset-0 pointer-events-none">
-        <div className="absolute inset-0 bg-gradient-radial from-transparent to-purple-900/50"></div>
-      </div>
+        </div>
+      )}
     </div>
   );
 };

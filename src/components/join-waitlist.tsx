@@ -61,7 +61,7 @@ export const JoinWaitlist = () => {
       <Dialog open={isOpen} onOpenChange={setIsOpen}>
         <DialogContent className="bg-purple-900 text-white">
           <DialogHeader>
-            <DialogTitle className="font-pixel text-xl">Join the Waitlist</DialogTitle>
+            <DialogTitle className="font-pixel text-lg">Join the Waitlist</DialogTitle>
           </DialogHeader>
           <form onSubmit={handleSubmit} className="flex flex-col space-y-4">
             <input
