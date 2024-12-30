@@ -1,14 +1,11 @@
 'use client';
 
-import { useState, useEffect, Suspense, useMemo } from 'react'
+import { useState, useEffect, Suspense} from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { CountdownTimer } from '@/components/countdown-timer'
 import { SpgCA } from '@/components/spg-ca'
 import { TokenTicker } from '@/components/token-ticker'
 import { Header } from '@/components/header';
-import Image from 'next/image';
-import { fetchTokens } from '../utils/fetchTokens'; // Adjust the path if necessary
-import StatusBar from '../components/StatusBar';
 import { useSearchParams } from 'next/navigation';
 import { BattleArena } from '@/components/battle-arena'; // Import BattleArena
 

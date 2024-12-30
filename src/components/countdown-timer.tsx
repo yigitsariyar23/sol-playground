@@ -46,7 +46,7 @@ export const CountdownTimer = ({ targetDate }: CountdownTimerProps) => {
             {timeLeft.days}d:{timeLeft.hours}h:{timeLeft.minutes}m:{timeLeft.seconds}s left
           </div>
       ) : (
-        <span>Time's up!</span>
+        <span>Time is up!</span>
       )}
     </div>
   );

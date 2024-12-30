@@ -1,6 +1,6 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import Image from 'next/image';
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { toast } from 'react-toastify'; // Import toast for notifications
@@ -11,6 +11,9 @@ export const BattleArena = ({ coin1, coin2 }: { coin1: string, coin2: string }) 
   const [walletError, setWalletError] = useState('');
   const [coin1Votes, setCoin1Votes] = useState(0);
   const [coin2Votes, setCoin2Votes] = useState(0);
+  const [selectedCoin, setSelectedCoin] = useState<string | null>(null);
+  const [successOpen, setSuccessOpen] = useState(false); // State for success dialog
+  const [successMessage, setSuccessMessage] = useState(''); // State for success message
 
   const validateWallet = (wallet: string) => {
     const walletRegex = /^[a-zA-Z0-9]{44}$/;
@@ -18,47 +21,55 @@ export const BattleArena = ({ coin1, coin2 }: { coin1: string, coin2: string }) 
   };
 
   const handleVote = (coin: string) => {
+    setSelectedCoin(coin);
     setShowDialog(true);
   };
 
-  const handleDialogSubmit = async (coin: string) => {
+  const handleDialogSubmit = async () => {
     if (!validateWallet(walletAddress)) {
       setWalletError('Invalid wallet address');
       return;
     }
 
     try {
-      console.log('Submitting vote:', walletAddress, coin);
+      console.log('Submitting vote:', walletAddress, selectedCoin);
       const response = await fetch('/api/route', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
-        body: JSON.stringify({ wallet: walletAddress, coin, table: 'votes', isConfirmed: false }),
+        body: JSON.stringify({ wallet: walletAddress, coin: selectedCoin, table: 'votes', isConfirmed: false }),
       });
 
       const result = await response.json();
 
       if (response.ok) {
         toast.success('Vote submitted successfully.');
+        setSuccessMessage('Your vote has been successfully submitted!\n Please wait for the confirmation to see your vote.');
+        setSuccessOpen(true); // Open success dialog
       } else {
         console.error('Error response:', result);
         if (result.error === 'Already voted') {
           toast.error('You already voted.');
+          setSuccessMessage('You have already voted.');
         } else {
           toast.error('Error submitting vote.');
+          setSuccessMessage('Error submitting vote.');
         }
+        setSuccessOpen(true); // Open success dialog with error message
       }
     } catch (error) {
       console.error('Error submitting vote:', error);
       toast.error('Error submitting vote.');
+      setSuccessMessage('Error submitting vote.');
+      setSuccessOpen(true); // Open success dialog with error message
     }
 
     setWalletError('');
     setShowDialog(false);
   };
 
-  const fetchVotes = async () => {
+  const fetchVotes = useCallback(async () => {
     try {
       const response = await fetch('/api/route');
       if (!response.ok) {
@@ -71,11 +82,11 @@ export const BattleArena = ({ coin1, coin2 }: { coin1: string, coin2: string }) 
     } catch (error) {
       console.error('Error fetching votes:', error);
     }
-  };
+  }, [coin1, coin2]);
 
   useEffect(() => {
     fetchVotes();
-  }, []);
+  }, [fetchVotes]);
 
   return (
     <div className='border-2 border-white p-16 rounded-xl'>
@@ -100,7 +111,7 @@ export const BattleArena = ({ coin1, coin2 }: { coin1: string, coin2: string }) 
             <DialogTitle className="font-pixel text-center text-lg">Enter Wallet Address</DialogTitle>
           </DialogHeader>
           <div className="flex flex-col space-y-4">
-            <p className="text-gray-400 -mt-4 text-xs text-center">To vote you should have at least 4000$SPG.</p> {/* Information about $SPG */}
+            <p className="text-gray-400 -mt-4 text-xs text-center">To vote you should have at least 1M$SPG.</p> {/* Information about $SPG */}
             <input
               type="text"
               placeholder="Solana Wallet Address"
@@ -110,8 +121,21 @@ export const BattleArena = ({ coin1, coin2 }: { coin1: string, coin2: string }) 
               required
             />
             {walletError && <p className="text-red-500">{walletError}</p>} {/* Display wallet error */}
-            <button onClick={() => handleDialogSubmit(coin1)} className="bg-green-500 px-4 py-2 rounded font-pixel text-white hover:bg-green-400 transition">
+            <button onClick={() => handleDialogSubmit()} className="bg-green-500 px-4 py-2 rounded font-pixel text-white hover:bg-green-400 transition">
               Vote
+            </button>
+          </div>
+        </DialogContent>
+      </Dialog>
+      <Dialog open={successOpen} onOpenChange={setSuccessOpen}>
+        <DialogContent className="bg-purple-900 text-white">
+          <DialogHeader>
+            <DialogTitle className="font-pixel text-xl">Success</DialogTitle>
+          </DialogHeader>
+          <div className="flex flex-col space-y-4">
+            <p>{successMessage}</p>
+            <button onClick={() => setSuccessOpen(false)} className="bg-green-500 px-4 py-2 rounded font-pixel text-white hover:bg-green-400 transition">
+              Close
             </button>
           </div>
         </DialogContent>
