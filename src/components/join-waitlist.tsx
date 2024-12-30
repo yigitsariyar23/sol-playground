@@ -36,7 +36,7 @@ export const JoinWaitlist = () => {
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify({ email, wallet, source: 'join-waitlist' }), // Add source field
+      body: JSON.stringify({ email, wallet, source: 'users' }), // Add source field
     });
 
     const result = await response.json();
