@@ -21,8 +21,8 @@ function Home() {
   const [mounted, setMounted] = useState(false);
   const searchParams = useSearchParams();
   const [coin1] = useState('CHILLGUY'); // Set your coin names here
-  const [coin2] = useState('BONK'); // Set your coin names here
-  const targetDate = "2024-12-31T23:59:59"; // Set your target date and time here
+  const [coin2] = useState('PNUT'); // Set your coin names here
+  const targetDate = "2025-01-07T19:00:00"; // Set your target date and time here
 
 
   useEffect(() => {
