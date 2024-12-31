@@ -3,7 +3,7 @@
 import { useState } from 'react';
 import { Copy } from 'lucide-react';
 
-export const PoolDisplay = () => {
+export const SpgCA = () => {
   const [copied, setCopied] = useState(false);
 
   const copyToClipboard = () => {
@@ -17,7 +17,7 @@ export const PoolDisplay = () => {
       <div className="flex justify-center items-center gap-2 md:gap-4 mb-2 md:mb-4">
         <button 
           onClick={copyToClipboard} 
-          className="bg-purple-700 hover bg-purple-600 text-white py-2 px-4 rounded-lg flex items-center"
+          className="bg-purple-700 px-2 md:px-4 py-1 md:py-2 rounded font-pixel text-[10px] sm:text-xs md:text-base text-white hover:bg-purple-600 transition flex items-center"
         >
           $SPG CA: <Copy size={24} className="ml-2" />
         </button>

@@ -1,17 +1,13 @@
 'use client';
 
-import { useState, useEffect, Suspense } from 'react'
+import { useState, useEffect, Suspense} from 'react'
 import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog"
 import { CountdownTimer } from '@/components/countdown-timer'
-import { PoolDisplay } from '@/components/pool-display'
+import { SpgCA } from '@/components/spg-ca'
 import { TokenTicker } from '@/components/token-ticker'
-import { FaqMenu } from '@/components/faq-menu'
-import { JoinWaitlist } from '@/components/join-waitlist';
-import Image from 'next/image';
-import { fetchTokens } from '../utils/fetchTokens'; // Adjust the path if necessary
-import StatusBar from '../components/StatusBar';
+import { Header } from '@/components/header';
 import { useSearchParams } from 'next/navigation';
-import { Balloon } from '@/components/balloon';
+import { BattleArena } from '@/components/battle-arena'; // Import BattleArena
 
 interface MenuItem {
   id: string
@@ -23,11 +19,10 @@ function Home() {
   const [activeModal, setActiveModal] = useState<string | null>(null)
   const [menuItems, setMenuItems] = useState<MenuItem[]>([])
   const [mounted, setMounted] = useState(false);
-  const [coin1] = useState('CHILLGUY');
-  const [coin2] = useState('BONK');
-  const [coin1MarketCapChange, setCoin1MarketCap] = useState<number>(0);
-  const [coin2MarketCapChange, setCoin2MarketCap] = useState<number>(0);
   const searchParams = useSearchParams();
+  const [coin1] = useState('CHILLGUY'); // Set your coin names here
+  const [coin2] = useState('PNUT'); // Set your coin names here
+  const targetDate = "2025-01-07T19:00:00"; // Set your target date and time here
 
 
   useEffect(() => {
@@ -69,25 +64,6 @@ function Home() {
     ])
     setMounted(true);
 
-    const fetchMarketCaps = async () => {
-      try {
-        const tokens = await fetchTokens();
-        const coin1Token = tokens.find(token => token.id === 'bonk');
-        const coin2Token = tokens.find(token => token.id === 'chill-guy');
-
-        if (coin1Token) {
-          setCoin1MarketCap(coin1Token.price_change_percentage_24h ?? null);
-        }
-        if (coin2Token) {
-          setCoin2MarketCap(coin2Token.price_change_percentage_24h ?? null);
-        }
-      } catch (error) {
-        console.error('Error fetching market cap data:', error);
-      }
-    };
-
-    fetchMarketCaps();
-
     const modal = searchParams?.get('modal');
     if (modal === 'faq') {
       setActiveModal('faq');
@@ -107,10 +83,6 @@ function Home() {
     return null;
   }
 
-  const totalChange = Math.abs(coin1MarketCapChange) + Math.abs(coin2MarketCapChange);
-  const coin1Percentage = totalChange ? (Math.abs(coin1MarketCapChange) / totalChange) * 100 : 50;
-  const coin2Percentage = totalChange ? (Math.abs(coin2MarketCapChange) / totalChange) * 100 : 50;
-
   return (
     <main className="min-h-screen relative overflow-hidden md:overflow-auto bg-gradient-to-b from-purple-950 to-black">
       {/* Spotlight Effects */}
@@ -123,90 +95,15 @@ function Home() {
       <div className="relative z-10 flex flex-col min-h-screen">
         <div className="flex-grow p-2 md:p-4">
           {/* Header with buttons */}
-          <div className="flex justify-between items-center mb-4 md:mb-8">
-            <div className="flex gap-2 md:gap-4">
-              <FaqMenu />
-            </div>
-            <JoinWaitlist/>
-          </div>
-
-          {/* Title Section */}
-          <div className="text-center mb-4 md:mb-8">
-            <h1 className="font-pixel text-2xl sm:text-2xl md:text-5xl lg:text-7xl text-white mb-2 md:mb-4">SOLPLAYGROUND</h1>
-            <p className="font-pixel text-sm sm:text-base md:text-lg text-gray-300">THE BATTLEGROUND OF MEMECOINS!</p>
-            <p className="font-pixel text-xs sm:text-sm text-gray-400">
-              COMPETE, WIN AND MULTIPLY YOUR GAINS<br />
-              WHILE SHAPING THE FUTURE OF $SPG
-            </p>
-          </div>
-          <Balloon/>
+          <Header/>
 
           {/* Main content */}
-          <div className="flex flex-col -translate-y-4 md:-translate-y-8 items-center justify-center flex-grow">
-            <CountdownTimer />
-            <div className="-translate-y-4 md:-translate-y-8">
-              <PoolDisplay/>
-            </div>
+          <div className="flex flex-col mt-16 md:mt-28 items-center justify-center flex-grow">
+            <SpgCA/>
+            <CountdownTimer targetDate={targetDate} />
             
-            <div className='-translate-y-4'>
-              <h1 className='text-white text-center'>Battle between {coin1} and {coin2}</h1>
-              <StatusBar
-          coin1={coin1}
-          coin2={coin2}
-          coin1Percentage={coin1Percentage}
-          coin2Percentage={coin2Percentage}
-              />
-              {/* Other components and content */}
-            </div>
-            <div className="mt-48 sm:mt-48 relative w-full -translate-y-4 md:-translate-y-8 max-w-screen-xl mx-auto">
-              <div className="relative">
-          <Image
-            src="/battle-arena.svg"
-            alt="battle-arena"
-            width={400}
-            height={400}
-            className="absolute bottom-0 left-1/2 -translate-x-1/2 w-[400px]"
-            priority
-          />
-            <div className="relative flex justify-center">
-            {/* Character positions */}
-            <Image
-              src="/chillguy.png"
-              alt="left-char"
-              width={200}
-              height={200}
-              className="absolute bottom-0 sm:-mx-8 md:mx-32 lg:mx-48 left-1/4 -translate-x-1/2 animate-idle w-[100px]"
-              style={{ animationDelay: `20ms` }}
-              priority
-            />
-            <Image
-              src="/bonk.png"
-              alt="right-char"
-              width={200}
-              height={200}
-              className="absolute bottom-0 sm:-mx-8 md:mx-24 lg:mx-48 right-1/4 -translate-x-1/2 animate-idle w-[100px]"
-              style={{ animationDelay: `20ms` }}
-              priority
-            />
-            </div>
-          <div>
-            <div className='md:translate-x-24 sm:translate-x-4 md:-translate-y-24 sm:translate-y-8'>
-              <span className='absolute left-1/2 transform translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm'
-              style={{color: (coin1MarketCapChange ?? 0)  < 0 ? 'red' : 'green' }}>
-                {coin1MarketCapChange !== null ? `%${coin1MarketCapChange.toLocaleString()}` : 'NULL'}
-              </span>
-            </div>
-            <div className='md:-translate-x-48 sm:-translate-x-24 md:-translate-y-24 sm:translate-y-8'>
-              <span className="absolute left-1/2 -translate-x-1/2 -translate-y-1/2 top-1/2 text-white text-sm" 
-              style={{color: (coin2MarketCapChange ?? 0)  < 0 ? 'red' : 'green' }}>
-                {coin2MarketCapChange !== null ? `%${coin2MarketCapChange.toLocaleString()}` : 'NULL'}
-              </span>
-            </div>
+            <BattleArena coin1={coin1} coin2={coin2} /> {/* Use BattleArena component */}
           </div>
-            </div>
-          </div>
-        </div>
-        <div className="h-16"></div>
       </div>
         {/* Token Ticker - Fixed at bottom */}
         <div className="w-full fixed bottom-0">
