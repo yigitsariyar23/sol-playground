@@ -98,7 +98,7 @@ function Home() {
           <Header/>
 
           {/* Main content */}
-          <div className="flex flex-col mt-16 md:mt-28 items-center justify-center flex-grow">
+          <div className="flex flex-col mt-36 md:mt-28 items-center justify-center flex-grow">
             <SpgCA/>
             <CountdownTimer targetDate={targetDate} />
             

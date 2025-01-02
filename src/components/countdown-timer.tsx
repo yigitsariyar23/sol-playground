@@ -40,7 +40,7 @@ export const CountdownTimer = ({ targetDate }: CountdownTimerProps) => {
   });
 
   return (
-    <div className="font-pixel text-4xl md:text-4xl text-white text-center mb-8">
+    <div className="font-pixel text-xl md:text-4xl text-white text-center mb-8">
       {timeLeft.days !== undefined ? (
           <div>
             {timeLeft.days}d:{timeLeft.hours}h:{timeLeft.minutes}m:{timeLeft.seconds}s left
